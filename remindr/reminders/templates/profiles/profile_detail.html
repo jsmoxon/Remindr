@@ -1,0 +1,19 @@
+<div id="profileInfo">
+  {% for person in profile.user.person_set.all %}
+  <a href="{% url person person.pk %}">{{person}}'s expenses</a>
+  {% endfor %}
+  <hr>
+    <h1>{{ profile.user }}</h1>
+    <br/>
+    {% if not noProfile %}
+        <h2> Profile <a href="{% url profiles_edit_profile %}">Edit </a> </h2>
+    <ul class="unstyled">
+        <li> <b>User:</b> {{ profile.user }} </li>
+        <li> <b>First Name: </b> {{ profile.user.first_name }} </li>
+        <li> <b>Last Name: </b> {{ profile.user.last_name }} </li>
+        <li> <b>Email: </b> {{ profile.user.email }} </li>
+    </ul>
+    {% else %}
+    This user does not have a profile yet!
+    {% endif %}
+</div>

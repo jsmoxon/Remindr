@@ -1,0 +1,10 @@
+from django_cron import cronScheduler, Job
+from reminders.views import *
+
+class sendMail(Job):
+    run_every = 100
+
+    def job(self):
+        cron_test()
+
+cronScheduler.register(sendMail)

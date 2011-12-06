@@ -1,0 +1,38 @@
+from django.shortcuts import render_to_response
+from django.core.mail import send_mail, BadHeaderError
+from django.http import HttpResponse, HttpResponseRedirect
+from django.template import RequestContext
+from models import *
+from django.core.mail import send_mail, BadHeaderError
+from django.views.decorators.csrf import csrf_exempt
+import string, datetime
+
+def home(request):
+    return render_to_response("entry.html")
+
+@csrf_exempt
+def create_reminder(request):
+    reminder = Reminder.objects.create(title=request.POST['title'])
+    today = datetime.datetime.today()
+    now = datetime.datetime.now()
+    reminder.date_created = now
+    reminder.save()
+    reminder.description = request.POST['description']
+    reminder.date_to_remind = request.POST['date_to_remind']
+    reminder.save()
+    return HttpResponse("Created!")
+
+def reminder_confirmation(reminder):
+    reminder = Reminder.objects.get(pk=1)
+    subject = reminder.title
+    message = reminder.description
+    from_email = "remindr.email@gmail.com"
+    TO = "jsmoxon@gmail.com"
+    body = string.join((
+            "From: %s" % from_email,
+            "Subject: %s" % subject,
+            "To: %s" % TO,
+            message,
+            ), "\r\n")
+    send_mail(subject, body, from_email, ['jsmoxon@gmail.com'], fail_silently=False)
+    return HttpResponse("Sent!")

@@ -1,0 +1,5 @@
+<h1>Reminder List</h1>
+
+{% for item in reminder_list %}
+<li>{{ item.title }}</li>
+{% endfor %}

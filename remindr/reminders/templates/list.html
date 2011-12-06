@@ -1,0 +1,8 @@
+{% for item in reminder_list %}
+<li>{{ item.title }}</li>
+{% endfor %}
+
+
+<form action="/send_reminder/" method="get">
+  <input type="submit" value="send reminders" />
+</form>

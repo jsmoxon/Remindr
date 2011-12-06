@@ -1,0 +1,7 @@
+
+<h1>Create Profile</h1>
+    <form method="post" action="{% url profiles_create_profile %}" class="form-stacked">
+      {% csrf_token %}
+      {{form.as_p}}
+      <input class="btn primary" type="submit" name="post" class="submit-post" value="Post">
+     

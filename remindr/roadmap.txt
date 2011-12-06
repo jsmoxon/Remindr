@@ -1,0 +1,23 @@
+pages
+1. a place to enter a reminder
+2. a place to view your upcoming events/reminders
+
+functionality
+1. store reminders in a db
+2. run a cron job to check to see if any reminders come due
+3. if they come due send the email to the appropriate person
+
+how to do this:
+a reminder is set
+a date is set for the reminder to be sent
+the cron job is constantly searching the db for reminiders that have come due
+when it finds it needs to send the email
+
+
+
+
+further down the road
+1. user accounts/registration
+2. calendar type interface
+3. ability to check things off the list in ajax
+4. have a quick reply command that lets you say: push back and for how long (after 3 times have it say THIS IS THE THIRD TIME...COME ON!)

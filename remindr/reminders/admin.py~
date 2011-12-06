@@ -1,0 +1,5 @@
+from reminders.models import *
+from django.contrib import admin
+
+admin.site.register(Reminder)
+admin.site.register(Person)
