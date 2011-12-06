@@ -9,29 +9,26 @@ from django.views.generic.list import ListView
 import string, datetime
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView
+from django.views.generic import TemplateView
 from forms import *
+from django.contrib.auth import authenticate, login, logout
 
-@login_required
-def home(request):
-    def get_queryset(self):
-        return self.request.user.book_set.filter(active=True)
-    return render_to_response("entry.html")
+def log_view(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        if user.is_active:
+            login(request, user)
+            return render_to_response('loggedin.html')
+        else:
+            return HttpResponse('Please submit a valid password')
+    else:
+        return HttpResponse('Remindr is in private beta; please check again later.')
 
-@login_required
-def stored_successfully(request):
-    return HttpResponse("Stored successfully!")
-
-class AddReminderView(CreateView):
-    model = Reminder
-    form_class = AddReminderForm
-    template_name = "add_reminder.html"
-    success_url = "success"
-    def get_form(self, form_class):
-        form = super(AddReminderView, self).get_form(form_class)
-        form.instance.person = self.request.user
-        return form
-    
-
+def logout_action(request):
+    logout(request)
+    return render_to_response('logged_out.html')
 
 @csrf_exempt
 def create_reminder(request):
@@ -121,9 +118,34 @@ def reminder_confirmation(reminder):
 def cron_test():
     send_mail("this is a test of the cron system", "this is only a test", "remindr.email@gmail.com", ['jsmoxon@gmail.com'], fail_silently=False)
 
+#Views for reminders.urls 
+
+@login_required
+def main(request):
+    return render_to_response("main.html", {"user":user})
+
+@login_required
+def stored_successfully(request):
+    return HttpResponse("Stored successfully!")
+
+class MainView(TemplateView):
+    template_name = "main.html"
+    model = Reminder
+    context_object_name = "reminder_list"
+
 class ReminderView(ListView):
     context_object_name = "reminder_list"
     template_name = "reminders.html"
     model = Reminder
     def get_queryset(self):
         return self.request.user.reminder_set.filter(active=True)
+
+class AddReminderView(CreateView):
+    model = Reminder
+    form_class = AddReminderForm
+    template_name = "add_reminder.html"
+    success_url = "success"
+    def get_form(self, form_class):
+        form = super(AddReminderView, self).get_form(form_class)
+        form.instance.person = self.request.user
+        return form

@@ -1,5 +1,7 @@
-<h1>Remindr</h1>
+{% extends "base/base.html" %}
+{% block content %}
 <h3>{{user.username}}'s Reminders</h3>
 {% for item in reminder_list %}
 <li>{{ item.title }}</li>
 {% endfor %}
+{% endblock content %}

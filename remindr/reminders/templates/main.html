@@ -1,0 +1,8 @@
+{% extends "base/base.html" %}
+{% block content %}
+<h3>{{user.username}}'s Reminders</h3>
+<ul>
+<li><a href="/reminders/add/">Add a reminder</a></li>
+<li><a href="/reminders/list/">See a list of reminders and tasks</a></li>
+</ul>
+{% endblock content %}

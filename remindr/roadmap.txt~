@@ -10,8 +10,6 @@ UI
 4b. functionality of list: 
     - cross them off
     - edit them
-    - see their descriptions and details
-    - order them as you like; but have them be chronological 
 
 functionality
 1. store reminders in a db
