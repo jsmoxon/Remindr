@@ -93,11 +93,11 @@ def cron_reminder():
                     message,
                     ), "\r\n")
             send_mail(subject, body, from_email, ['jsmoxon@gmail.com'], fail_silently=False)
-        else:
-            subject = reminder.title
-            message = reminder.description+"and here is a bit of text to mix it up"
-            from_email = "remindr.email@gmail.com"
-            send_mail(subject, "Has not occurred yet", "remindr.email@gmail.com", ['jsmoxon@gmail.com'], fail_silently=False)
+#        else:
+ #           subject = reminder.title
+  #          message = reminder.description+"and here is a bit of text to mix it up"
+   #         from_email = "remindr.email@gmail.com"
+    #        send_mail(subject, "Has not occurred yet", "remindr.email@gmail.com", ['jsmoxon@gmail.com'], fail_silently=False)
 
 
 def reminder_confirmation(reminder):
@@ -119,11 +119,6 @@ def cron_test():
     send_mail("this is a test of the cron system", "this is only a test", "remindr.email@gmail.com", ['jsmoxon@gmail.com'], fail_silently=False)
 
 #Views for reminders.urls 
-
-@login_required
-def main(request):
-    return render_to_response("main.html", {"user":user})
-
 @login_required
 def stored_successfully(request):
     return HttpResponse("Stored successfully!")
@@ -149,3 +144,10 @@ class AddReminderView(CreateView):
         form = super(AddReminderView, self).get_form(form_class)
         form.instance.person = self.request.user
         return form
+    def make_date(request):
+        year = request.POST.get('year')
+        month = request.POST.get('month')
+        reminder = Reminder.objects.get(title=request.POST['title'])
+        reminder.date_to_remind = year
+        reminder.save()
+
