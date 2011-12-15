@@ -14,7 +14,7 @@ UI
     - order them as you like; but have them be chronological 
 
 functionality
-1. store reminders in a db
+1. store reminders in a db (done)
 2. run a cron job to check to see if any reminders come due
 3. if they come due send the email to the appropriate person
 
