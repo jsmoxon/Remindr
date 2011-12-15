@@ -120,7 +120,6 @@ INSTALLED_APPS = (
     'frontend',
     'reminders', 
     'south',
-    'profiles',
     'django_cron',
 )
 
