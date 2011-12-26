@@ -1,13 +1,14 @@
 from django_cron import cronScheduler, Job
-from django.core.mail import send_mail, BadHeaderError
+from reminders.views import send_reminder
+from models import Reminder
+from datetime import datetime
+from django.contrib.auth.models import User
 
 class sendMail(Job):
-    run_every = 120
+    run_every = 100
 
     def job(self):
-        subject = "test of cron system"
-        body = "test of cron" 
-        from_email = "remindr.email@gmail.com"
-        send_mail(subject, body, from_email, ['jsmoxon@gmail.com'], fail_silently=False)
+        cron_test()
 
 cronScheduler.register(sendMail)
+

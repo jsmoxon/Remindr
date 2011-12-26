@@ -1,6 +1,17 @@
+{% load static %}
+<html>
+<head>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script type="text/javascript" src="{% get_static_prefix %}js/test.js"></script>
+  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+</head>
+<body>
 <h1>Remindr</h1>
 {% block content %}
 {% endblock content %}
 <a href="/reminders/home/">Home</a>
 <a href="/reminders/add/">Add</a>
 <a href="/logout_action/">logout</a>
+</body>
